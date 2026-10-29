@@ -6,7 +6,6 @@
  * GitHub Pages Compatible & Fully Responsive
  */
 
-import emailjsBrowser from '@emailjs/browser';
 import { TRANSLATIONS } from './translations.js';
 
 // Language state
@@ -23,12 +22,18 @@ const EMAILJS_CONFIG = {
   templateId: 'template_m4j2ep9'
 };
 
-// Initialize EmailJS via bundled package or global fallback
-const emailjsInstance = (typeof window !== 'undefined' && window.emailjs) ? window.emailjs : emailjsBrowser;
+// Safe getter for EmailJS instance (loaded via official CDN script tag in index.html)
+function getEmailJS() {
+  if (typeof window !== 'undefined' && window.emailjs) {
+    return window.emailjs;
+  }
+  return null;
+}
 
 try {
-  if (emailjsInstance && typeof emailjsInstance.init === 'function') {
-    emailjsInstance.init({ publicKey: EMAILJS_CONFIG.publicKey });
+  const emailjs = getEmailJS();
+  if (emailjs && typeof emailjs.init === 'function') {
+    emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
   }
 } catch (initErr) {
   console.warn('EmailJS initialization warning:', initErr);
@@ -313,7 +318,8 @@ function setupMenuStudyForm() {
     }
 
     try {
-      const activeSender = (typeof window !== 'undefined' && window.emailjs) ? window.emailjs : emailjsBrowser;
+      const activeSender = getEmailJS();
+      if (!activeSender) throw new Error("EmailJS SDK not available");
       
       const response = await activeSender.send(
         EMAILJS_CONFIG.serviceId,
@@ -416,17 +422,28 @@ function setupQuickConsultationForm() {
 
   // Platform & Calculation Elements
   const platformRadios = document.querySelectorAll('input[name="menu-platform"]');
-  const pagesContainer = document.getElementById("pages-count-container");
+  
+  // Pages elements (1.00$ / page)
   const pagesInput = document.getElementById("pages-count");
   const btnPageDec = document.getElementById("btn-page-dec");
   const btnPageInc = document.getElementById("btn-page-inc");
-  const presetPills = document.querySelectorAll("#pages-preset-pills .page-pill");
-  const featuresContainer = document.getElementById("features-selection-container");
+  const pagesPresetPills = document.querySelectorAll("#pages-preset-pills .page-pill");
+
+  // Items elements (2.50$ / item)
+  const itemsInput = document.getElementById("items-count");
+  const btnItemDec = document.getElementById("btn-item-dec");
+  const btnItemInc = document.getElementById("btn-item-inc");
+  const itemsPresetPills = document.querySelectorAll("#items-preset-pills .page-pill");
+
+  // Features elements
   const featureCheckboxes = document.querySelectorAll('input[name="extra-feature"]');
 
+  // Estimate breakdown elements
   const estimateBox = document.getElementById("price-estimate-box");
   const breakdownPagesText = document.getElementById("breakdown-pages-text");
   const breakdownPagesCost = document.getElementById("breakdown-pages-cost");
+  const breakdownItemsText = document.getElementById("breakdown-items-text");
+  const breakdownItemsCost = document.getElementById("breakdown-items-cost");
   const breakdownFeaturesRow = document.getElementById("breakdown-features-row");
   const breakdownFeaturesText = document.getElementById("breakdown-features-text");
   const breakdownFeaturesCost = document.getElementById("breakdown-features-cost");
@@ -441,12 +458,16 @@ function setupQuickConsultationForm() {
   const PHONE_RAW = "966541821068";
   const EMAIL_ADDRESS = "amoal2030@gmail.com";
   const SAR_PER_USD = 3.75;
-  const RATE_PER_PAGE_USD = 1.0;
+  const RATE_PER_PAGE_USD = 1.00;
+  const RATE_PER_ITEM_USD = 2.50;
 
   // Real-time Calculation Helper
   function updatePriceEstimate() {
     const pagesCount = Math.max(1, parseInt(pagesInput?.value || "1", 10) || 1);
     const pagesCost = pagesCount * RATE_PER_PAGE_USD;
+
+    const itemsCount = Math.max(1, parseInt(itemsInput?.value || "1", 10) || 1);
+    const itemsCost = itemsCount * RATE_PER_ITEM_USD;
 
     // Calculate selected features
     const selectedFeatures = [];
@@ -467,20 +488,32 @@ function setupQuickConsultationForm() {
       }
     });
 
-    const totalUsd = pagesCost + featuresCost;
+    const totalUsd = pagesCost + itemsCost + featuresCost;
     const totalSar = totalUsd * SAR_PER_USD;
 
-    // Update breakdown: Pages
+    // Update breakdown: Pages (1.00$ / page)
     if (breakdownPagesText) {
       if (currentLang === 'en') {
-        breakdownPagesText.textContent = `${pagesCount} ${pagesCount === 1 ? 'Page' : 'Pages'} ($1 / page)`;
+        breakdownPagesText.textContent = `${pagesCount} ${pagesCount === 1 ? 'Page' : 'Pages'} ($1.00 / page)`;
       } else {
         const unit = pagesCount === 1 ? 'صفحة' : (pagesCount <= 10 ? 'صفحات' : 'صفحة');
-        breakdownPagesText.textContent = `${pagesCount} ${unit} (1$ / صفحة)`;
+        breakdownPagesText.textContent = `${pagesCount} ${unit} (1.00$ / صفحة)`;
       }
     }
     if (breakdownPagesCost) {
       breakdownPagesCost.textContent = `$${pagesCost.toFixed(2)}`;
+    }
+
+    // Update breakdown: Items (2.50$ / item)
+    if (breakdownItemsText) {
+      if (currentLang === 'en') {
+        breakdownItemsText.textContent = `${itemsCount} ${itemsCount === 1 ? 'Item' : 'Items'} ($2.50 / item)`;
+      } else {
+        breakdownItemsText.textContent = `${itemsCount} صنف (2.50$ / صنف)`;
+      }
+    }
+    if (breakdownItemsCost) {
+      breakdownItemsCost.textContent = `$${itemsCost.toFixed(2)}`;
     }
 
     // Update breakdown: Features
@@ -522,12 +555,12 @@ function setupQuickConsultationForm() {
       estimateBox.style.display = "block";
     }
 
-    return { pagesCount, pagesCost, selectedFeatures, featuresCost, totalUsd, totalSar };
+    return { pagesCount, pagesCost, itemsCount, itemsCost, selectedFeatures, featuresCost, totalUsd, totalSar };
   }
 
   // Sync preset pills active state
-  function syncPresets(count) {
-    presetPills.forEach(pill => {
+  function syncPagesPresets(count) {
+    pagesPresetPills.forEach(pill => {
       const p = parseInt(pill.getAttribute("data-pages") || "0", 10);
       if (p === count) {
         pill.classList.add("active");
@@ -537,14 +570,25 @@ function setupQuickConsultationForm() {
     });
   }
 
-  // Stepper buttons listeners
+  function syncItemsPresets(count) {
+    itemsPresetPills.forEach(pill => {
+      const p = parseInt(pill.getAttribute("data-items") || "0", 10);
+      if (p === count) {
+        pill.classList.add("active");
+      } else {
+        pill.classList.remove("active");
+      }
+    });
+  }
+
+  // Stepper buttons listeners: Pages
   if (btnPageDec) {
     btnPageDec.addEventListener("click", () => {
       let currentVal = parseInt(pagesInput?.value || "1", 10) || 1;
       if (currentVal > 1) {
         currentVal -= 1;
         if (pagesInput) pagesInput.value = currentVal;
-        syncPresets(currentVal);
+        syncPagesPresets(currentVal);
         updatePriceEstimate();
       }
     });
@@ -555,33 +599,84 @@ function setupQuickConsultationForm() {
       let currentVal = parseInt(pagesInput?.value || "1", 10) || 1;
       currentVal += 1;
       if (pagesInput) pagesInput.value = currentVal;
-      syncPresets(currentVal);
+      syncPagesPresets(currentVal);
       updatePriceEstimate();
     });
   }
 
-  // Preset pills listeners
-  presetPills.forEach(pill => {
+  // Stepper buttons listeners: Items
+  if (btnItemDec) {
+    btnItemDec.addEventListener("click", () => {
+      let currentVal = parseInt(itemsInput?.value || "5", 10) || 5;
+      if (currentVal > 5) {
+        currentVal -= 5;
+      } else if (currentVal > 1) {
+        currentVal = 1;
+      }
+      if (itemsInput) itemsInput.value = currentVal;
+      syncItemsPresets(currentVal);
+      updatePriceEstimate();
+    });
+  }
+
+  if (btnItemInc) {
+    btnItemInc.addEventListener("click", () => {
+      let currentVal = parseInt(itemsInput?.value || "30", 10) || 30;
+      currentVal += 5;
+      if (itemsInput) itemsInput.value = currentVal;
+      syncItemsPresets(currentVal);
+      updatePriceEstimate();
+    });
+  }
+
+  // Preset pills listeners: Pages
+  pagesPresetPills.forEach(pill => {
     pill.addEventListener("click", (e) => {
       e.preventDefault();
       const p = parseInt(pill.getAttribute("data-pages") || "5", 10);
       if (pagesInput) pagesInput.value = p;
-      syncPresets(p);
+      syncPagesPresets(p);
       updatePriceEstimate();
     });
   });
 
-  // Pages input direct typing listeners
+  // Preset pills listeners: Items
+  itemsPresetPills.forEach(pill => {
+    pill.addEventListener("click", (e) => {
+      e.preventDefault();
+      const it = parseInt(pill.getAttribute("data-items") || "30", 10);
+      if (itemsInput) itemsInput.value = it;
+      syncItemsPresets(it);
+      updatePriceEstimate();
+    });
+  });
+
+  // Direct typing listeners: Pages
   if (pagesInput) {
     pagesInput.addEventListener("input", () => {
       const val = parseInt(pagesInput.value || "1", 10) || 1;
-      syncPresets(val);
+      syncPagesPresets(val);
       updatePriceEstimate();
     });
     pagesInput.addEventListener("change", () => {
       const val = Math.max(1, parseInt(pagesInput.value || "1", 10) || 1);
       pagesInput.value = val;
-      syncPresets(val);
+      syncPagesPresets(val);
+      updatePriceEstimate();
+    });
+  }
+
+  // Direct typing listeners: Items
+  if (itemsInput) {
+    itemsInput.addEventListener("input", () => {
+      const val = parseInt(itemsInput.value || "1", 10) || 1;
+      syncItemsPresets(val);
+      updatePriceEstimate();
+    });
+    itemsInput.addEventListener("change", () => {
+      const val = Math.max(1, parseInt(itemsInput.value || "1", 10) || 1);
+      itemsInput.value = val;
+      syncItemsPresets(val);
       updatePriceEstimate();
     });
   }
@@ -665,14 +760,14 @@ function setupQuickConsultationForm() {
       ? calc.selectedFeatures.map(f => `${f.title} (+$${f.price})`).join("، ")
       : (isEn ? "No additional features" : "بدون مزايا إضافية");
 
-    const priceDetailsText = ` | Pages: ${calc.pagesCount} ($${calc.pagesCost.toFixed(2)}) | Add-ons: ${calc.selectedFeatures.length} ($${calc.featuresCost.toFixed(2)}) | Total: $${calc.totalUsd.toFixed(2)} (~ ${calc.totalSar.toFixed(2)} SAR)`;
+    const priceDetailsText = ` | Pages: ${calc.pagesCount} ($${calc.pagesCost.toFixed(2)}) | Items: ${calc.itemsCount} ($${calc.itemsCost.toFixed(2)}) | Add-ons: ${calc.selectedFeatures.length} ($${calc.featuresCost.toFixed(2)}) | Total: $${calc.totalUsd.toFixed(2)} (~ ${calc.totalSar.toFixed(2)} SAR)`;
 
     if (submitBtn) submitBtn.disabled = true;
     if (btnText) btnText.textContent = getTranslation("btn_submitting");
 
     // Attempt background email notification via EmailJS if available
     try {
-      const activeSender = (typeof window !== 'undefined' && window.emailjs) ? window.emailjs : emailjsBrowser;
+      const activeSender = getEmailJS();
       if (activeSender && typeof activeSender.send === 'function') {
         const fullNotes = `[Inquiry - ${platform}]${priceDetailsText}\nFeatures: ${featuresListSummary}${notes ? `\nNotes: ${notes}` : ""}`;
         await activeSender.send(
@@ -704,7 +799,8 @@ function setupQuickConsultationForm() {
         `• Venue: ${brand}`,
         `• Business Type: ${type}`,
         `• Required Menu: ${platform === "موقع" ? "Web Menu (Website)" : "Custom Mobile App"}`,
-        `• Menu Pages: ${calc.pagesCount} pages ($${calc.pagesCost.toFixed(2)})`
+        `• Menu Pages: ${calc.pagesCount} pages ($${calc.pagesCost.toFixed(2)})`,
+        `• Menu Items: ${calc.itemsCount} items ($${calc.itemsCost.toFixed(2)})`
       ];
       if (calc.selectedFeatures.length > 0) {
         whatsappLines.push(`• Selected Add-ons (${calc.selectedFeatures.length}):`);
@@ -723,7 +819,8 @@ function setupQuickConsultationForm() {
         `• المنشأة: ${brand}`,
         `• نوع النشاط: ${type}`,
         `• نوع المنيو المطلوب: ${platform === "موقع" ? "موقع إلكتروني (Web Menu)" : "تطبيق مخصص (Mobile App)"}`,
-        `• عدد الصفحات: ${calc.pagesCount} صفحات ($${calc.pagesCost.toFixed(2)})`
+        `• عدد الصفحات: ${calc.pagesCount} صفحات ($${calc.pagesCost.toFixed(2)})`,
+        `• عدد الأصناف: ${calc.itemsCount} صنف ($${calc.itemsCost.toFixed(2)})`
       ];
       if (calc.selectedFeatures.length > 0) {
         whatsappLines.push(`• المزايا الإضافية المختارة (${calc.selectedFeatures.length}):`);
@@ -758,7 +855,7 @@ function setupQuickConsultationForm() {
 
           <div style="background: rgba(194, 155, 74, 0.12); border: 1px solid var(--gold-border); border-radius: 8px; padding: 0.75rem 0.95rem; font-size: 0.88rem; margin-bottom: 0.75rem; color: var(--brand-forest);">
             <div style="font-weight: 700; margin-bottom: 0.35rem;">
-              📄 ${isEn ? `Menu Pages: <strong>${calc.pagesCount}</strong> ($${calc.pagesCost.toFixed(2)})` : `عدد الصفحات: <strong>${calc.pagesCount}</strong> صفحات ($${calc.pagesCost.toFixed(2)})`}
+              📄 ${isEn ? `Pages: <strong>${calc.pagesCount}</strong> ($${calc.pagesCost.toFixed(2)}) · Items: <strong>${calc.itemsCount}</strong> ($${calc.itemsCost.toFixed(2)})` : `الصفحات: <strong>${calc.pagesCount}</strong> صفحات ($${calc.pagesCost.toFixed(2)}) · الأصناف: <strong>${calc.itemsCount}</strong> صنف ($${calc.itemsCost.toFixed(2)})`}
             </div>
             ${calc.selectedFeatures.length > 0 ? `
               <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.35rem;">
@@ -788,7 +885,9 @@ function setupQuickConsultationForm() {
 
     form.reset();
     if (pagesInput) pagesInput.value = "5";
-    syncPresets(5);
+    if (itemsInput) itemsInput.value = "30";
+    syncPagesPresets(5);
+    syncItemsPresets(30);
     updatePriceEstimate();
     if (labelPlatformWeb) labelPlatformWeb.classList.add("active");
     if (labelPlatformApp) labelPlatformApp.classList.remove("active");

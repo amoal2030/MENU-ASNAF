@@ -9,6 +9,8 @@
     <meta name="description" content="منصة منيوم أصناف - الحل الرقمي الأرقى للمطاعم والمقاهي والمتاجر لعرض أطباقها ومنتجاتها عبر منيو إلكتروني تفاعلي سريع بدون تطبيقات." />
     
     <!-- Open Graph Social Share Cards -->
+    <link rel="canonical" href="https://amoal2030.github.io/MENU-ASNAF/" />
+    <meta property="og:url" content="https://amoal2030.github.io/MENU-ASNAF/" />
     <meta property="og:title" content="منيوم أصناف | Menu Asnaf - منيو رقمي فاخر" />
     <meta property="og:description" content="مشروعك يستحق حضورًا رقميًا يليق به. منيو إلكتروني تفاعلي فائق السرعة عبر رموز QR المخصصة." />
     <meta property="og:type" content="website" />
@@ -670,11 +672,11 @@
                 </div>
               </div>
 
-              <!-- Pages Count Input & Presets -->
+              <!-- 1. Pages Count Input & Presets (1.00$ / صفحة) -->
               <div class="form-group" id="pages-count-container">
                 <label class="form-label" for="pages-count">
                   <span data-i18n="field_pages_label">حدد عدد صفحات أو أقسام المنيو *</span>
-                  <span class="rate-badge" data-i18n="pages_rate_badge">1$ لكل صفحة</span>
+                  <span class="rate-badge" data-i18n="pages_rate_badge">1.00$ لكل صفحة</span>
                 </label>
 
                 <div class="pages-input-row">
@@ -695,7 +697,7 @@
                   <button type="button" class="btn-step" id="btn-page-inc" aria-label="زيادة عدد الصفحات">+</button>
                 </div>
 
-                <!-- Quick Presets -->
+                <!-- Quick Presets for Pages -->
                 <div class="pages-preset-pills" id="pages-preset-pills">
                   <button type="button" class="page-pill" data-pages="1"><span data-i18n="preset_1_page">1 صفحة</span></button>
                   <button type="button" class="page-pill" data-pages="3"><span data-i18n="preset_3_pages">3 صفحات</span></button>
@@ -705,6 +707,41 @@
                   <button type="button" class="page-pill" data-pages="20"><span data-i18n="preset_20_pages">20 صفحة</span></button>
                 </div>
                 <small class="field-hint" data-i18n="pages_hint">الصفحة تعادل قسماً مستقلاً (مثل: المقبلات، الأطباق الرئيسية، المشروبات، الحلويات، الفطور...).</small>
+              </div>
+
+              <!-- 2. Items Count Input & Presets (2.50$ / صنف) -->
+              <div class="form-group" id="items-count-container">
+                <label class="form-label" for="items-count">
+                  <span data-i18n="field_items_label">حدد عدد أصناف القائمة *</span>
+                  <span class="rate-badge" data-i18n="items_rate_badge">2.50$ لكل صنف</span>
+                </label>
+
+                <div class="pages-input-row">
+                  <button type="button" class="btn-step" id="btn-item-dec" aria-label="تقليل عدد الأصناف">-</button>
+                  <input 
+                    type="number" 
+                    id="items-count" 
+                    class="form-control" 
+                    style="text-align: center; font-weight: 700; font-size: 1.1rem;"
+                    value="30" 
+                    min="1" 
+                    max="500" 
+                    step="5"
+                    placeholder="30" 
+                    data-i18n-placeholder="field_items_ph"
+                    required
+                  />
+                  <button type="button" class="btn-step" id="btn-item-inc" aria-label="زيادة عدد الأصناف">+</button>
+                </div>
+
+                <!-- Quick Presets for Items -->
+                <div class="pages-preset-pills" id="items-preset-pills">
+                  <button type="button" class="page-pill" data-items="15"><span data-i18n="preset_15_items">15 صنف</span></button>
+                  <button type="button" class="page-pill active" data-items="30"><span data-i18n="preset_30_items">30 صنف</span></button>
+                  <button type="button" class="page-pill" data-items="50"><span data-i18n="preset_50_items">50 صنف</span></button>
+                  <button type="button" class="page-pill" data-items="75"><span data-i18n="preset_75_items">75 صنف</span></button>
+                  <button type="button" class="page-pill" data-items="100"><span data-i18n="preset_100_items">100 صنف</span></button>
+                </div>
               </div>
 
               <!-- Extra Features / Add-ons Selection (مزايا أخرى) -->
@@ -815,17 +852,25 @@
                     <span class="calc-icon">⚡</span>
                     <span data-i18n="calc_title">تكلفة المنيو التقديرية التلقائية</span>
                   </div>
-                  <span class="estimate-rate-pill" id="calc-summary-pill" data-i18n="calc_rate_pill">1$ / صفحة + المزايا</span>
+                  <span class="estimate-rate-pill" id="calc-summary-pill" data-i18n="calc_rate_pill">1.00$ / صفحة + 2.50$ / صنف</span>
                 </div>
 
                 <!-- Detailed Breakdown -->
                 <div class="estimate-breakdown-list">
-                  <div class="breakdown-item">
+                  <div class="breakdown-item" id="breakdown-pages-row">
                     <span class="breakdown-label">
                       <span>📄</span>
-                      <span id="breakdown-pages-text">5 صفحات (1$ / صفحة)</span>
+                      <span id="breakdown-pages-text">5 صفحات (1.00$ / صفحة)</span>
                     </span>
                     <span class="breakdown-val" id="breakdown-pages-cost">$5.00</span>
+                  </div>
+
+                  <div class="breakdown-item" id="breakdown-items-row">
+                    <span class="breakdown-label">
+                      <span>🍽️</span>
+                      <span id="breakdown-items-text">30 صنف (2.50$ / صنف)</span>
+                    </span>
+                    <span class="breakdown-val" id="breakdown-items-cost">$75.00</span>
                   </div>
 
                   <div class="breakdown-item" id="breakdown-features-row" style="display: none;">
@@ -843,7 +888,7 @@
                   <div class="estimate-card usd-card">
                     <div class="estimate-card-lbl" data-i18n="calc_usd_lbl">المبلغ الإجمالي بالدولار</div>
                     <div class="estimate-card-amount">
-                      <span class="num" id="estimate-usd">5.00</span>
+                      <span class="num" id="estimate-usd">80.00</span>
                       <span class="sym">$</span>
                     </div>
                   </div>
@@ -851,14 +896,14 @@
                   <div class="estimate-card sar-card">
                     <div class="estimate-card-lbl" data-i18n="calc_sar_lbl">المبلغ الإجمالي بالريال السعودي</div>
                     <div class="estimate-card-amount">
-                      <span class="num" id="estimate-sar">18.75</span>
+                      <span class="num" id="estimate-sar">300.00</span>
                       <span class="sym">ر.س</span>
                     </div>
                   </div>
                 </div>
 
                 <div class="estimate-footer-note" data-i18n="calc_footer">
-                  ✓ يتم الحساب تلقائياً: (عدد الصفحات × 1$) + تكلفة المزايا المختارة (سعر الصرف: 1$ = 3.75 ريال سعودي).
+                  ✓ يتم الحساب تلقائياً: (عدد الصفحات × 1.00$) + (عدد الأصناف × 2.50$) + تكلفة المزايا المختارة (بسعر الصرف: 1$ = 3.75 ريال سعودي).
                 </div>
               </div>
 
