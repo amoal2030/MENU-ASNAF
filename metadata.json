@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix Remix منيوم أصناف | Menu Asnaf",
+  "description": "منصة عربية احترافية للمطاعم والمقاهي والمتاجر لعرض منتجاتها بقوائم طعام ومنيو رقمي أنيق وتجربة ضيافة راقية.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

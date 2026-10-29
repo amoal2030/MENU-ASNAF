@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Title & SEO Meta Tags -->
+    <title>منيوم أصناف | منيو رقمي احترافي للمطاعم والمقاهي الراقية</title>
+    <meta name="description" content="منصة منيوم أصناف - الحل الرقمي الأرقى للمطاعم والمقاهي والمتاجر لعرض أطباقها ومنتجاتها عبر منيو إلكتروني تفاعلي سريع بدون تطبيقات." />
+    
+    <!-- Open Graph Social Share Cards -->
+    <meta property="og:title" content="منيوم أصناف | Menu Asnaf - منيو رقمي فاخر" />
+    <meta property="og:description" content="مشروعك يستحق حضورًا رقميًا يليق به. منيو إلكتروني تفاعلي فائق السرعة عبر رموز QR المخصصة." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./assets/aistudio/image_659bcb12.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Arabic Fonts (Readex Pro & IBM Plex Sans Arabic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Readex+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Stylesheets (Pure CSS3) -->
+    <link rel="stylesheet" href="./src/style.css" />
+
+    <!-- EmailJS Official Browser SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "منيوم أصناف | Menu Asnaf",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "description": "منصة عربية احترافية لتصميم وتشغيل قوائم الطعام والمنيو الرقمي التفاعلي للمطاعم والمقاهي والمتاجر.",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "SAR",
+        "price": "0"
+      }
+    }
+    </script>
+  </head>
+  <body>
+
+    <!-- ======================================================================
+         1. Header & Top Bar Contract (3 Zones)
+         ====================================================================== -->
+    <header class="site-header">
+      <div class="container">
+        <div class="nav-wrapper">
+          <!-- Zone 1: Brand Wordmark -->
+          <a href="#" class="brand-zone" aria-label="منيوم أصناف - الصفحة الرئيسية">
+            <div class="brand-logo-frame">
+              <img 
+                src="./assets/aistudio/image_659bcb12.png" 
+                alt="شعار منيوم أصناف - Menu Asnaf" 
+                class="brand-logo-img"
+              />
+            </div>
+            <div class="brand-text-wrap">
+              <span class="brand-name" data-i18n="brand_name">منيوم <span class="accent">أصناف</span></span>
+              <span class="brand-tagline" data-i18n="brand_tagline">MENU ASNAF</span>
+            </div>
+          </a>
+
+          <!-- Zone 2: Navigation Links (Single-line, unboxed) -->
+          <nav class="nav-menu" aria-label="القائمة الرئيسية">
+            <a href="#hero" class="nav-link" data-i18n="nav_home">الرئيسية</a>
+            <a href="https://amoal2030.github.io/pm2/" target="_blank" rel="noopener noreferrer" class="nav-link nav-link-external" data-i18n="nav_demo">استكشف  عملاناء ↗</a>
+            <a href="#services" class="nav-link" data-i18n="nav_services">خدماتنا</a>
+            <a href="#why-us" class="nav-link" data-i18n="nav_why_us">لماذا أصناف؟</a>
+            <a href="#menu-study" class="nav-link" data-i18n="nav_study">طلب دراسة منيو</a>
+            <a href="#faq" class="nav-link" data-i18n="nav_faq">الأسئلة الشائعة</a>
+            <a href="#quick-inquiry" class="nav-link" data-i18n="nav_inquiry">استفسار سريع</a>
+          </nav>
+
+          <!-- Zone 3: Primary Action, Language Switcher & Mobile Hamburger -->
+          <div class="nav-actions">
+            <!-- Language Selector: عربي / EN -->
+            <div class="lang-switcher" id="lang-switcher" role="group" aria-label="اختيار اللغة / Language selection">
+              <button type="button" class="lang-btn active" id="btn-lang-ar" data-lang="ar" aria-label="العربية">
+                <span class="lang-text">عربي</span>
+              </button>
+              <span class="lang-divider">·</span>
+              <button type="button" class="lang-btn" id="btn-lang-en" data-lang="en" aria-label="English">
+                <span class="lang-text">EN</span>
+              </button>
+            </div>
+
+            <a href="#quick-inquiry" class="btn btn-primary btn-sm" data-i18n="nav_cta">ابدأ مشروعك</a>
+            <button type="button" class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="فتح القائمة">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" x2="20" y1="12" x2="12"></line>
+                <line x1="4" x2="20" y1="6" x2="6"></line>
+                <line x1="4" x2="20" y1="18" x2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+      <div class="mobile-lang-row">
+        <span class="mobile-lang-caption" data-i18n="lang_label">اللغة / Language:</span>
+        <div class="mobile-lang-pills">
+          <button type="button" class="mobile-lang-pill active" data-lang="ar">عربي</button>
+          <button type="button" class="mobile-lang-pill" data-lang="en">EN</button>
+        </div>
+      </div>
+      <a href="#hero" data-i18n="nav_home">الرئيسية</a>
+      <a href="https://amoal2030.github.io/pm2/" target="_blank" rel="noopener noreferrer" style="color: var(--gold-primary); font-weight: 700;" data-i18n="nav_demo">استكشف  عملاناء ↗</a>
+      <a href="#services" data-i18n="nav_services">خدماتنا</a>
+      <a href="#why-us" data-i18n="nav_why_us">لماذا أصناف؟</a>
+      <a href="#menu-study" data-i18n="nav_study">طلب دراسة منيو</a>
+      <a href="#faq" data-i18n="nav_faq">الأسئلة الشائعة</a>
+      <a href="#quick-inquiry" style="color: var(--gold-primary); font-weight: 700;" data-i18n="nav_cta_inquiry">استفسار مباشر وسريع (ابدأ مشروعك)</a>
+    </div>
+
+    <!-- ======================================================================
+         2. Hero Section
+         ====================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <!-- Hero Text & Value Proposition -->
+          <div class="hero-content">
+            <div class="hero-kicker-row">
+              <span class="hero-kicker-dot"></span>
+              <span data-i18n="hero_kicker">المنصة الرقمية المتخصصة في تجارب الضيافة الراقية</span>
+            </div>
+
+            <h1 class="hero-title" data-i18n="hero_title">
+              مشروعك يستحق <br />
+              <span class="highlight">حضورًا رقميًا</span> يليق به
+            </h1>
+
+            <p class="hero-description" data-i18n="hero_desc">
+              نحوّل قوائم طعام المطاعم والمقاهي إلى تجارب تفاعلية آسرة تعكس تميز علامتكم التجارية. تصفح فائق السرعة عبر الهواتف الذكية فور مسح رمز الـ QR دون الحاجة لتثبيت أي تطبيقات.
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="#quick-inquiry" class="btn btn-primary">
+                <span data-i18n="hero_cta">ابدأ مشروعك معنا</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </a>
+              <a href="https://amoal2030.github.io/pm2/" target="_blank" rel="noopener noreferrer" class="btn btn-outline hero-demo-btn">
+                <span data-i18n="hero_demo_btn">استكشف  عملاناء</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+
+            <!-- Quantitative Trust Strip -->
+            <div class="hero-trust-strip">
+              <div class="trust-item">
+                <span class="trust-number" data-i18n="trust_speed_num">0.4 ثانية</span>
+                <span class="trust-label" data-i18n="trust_speed_lbl">سرعة فتح فائقة بدون تحميل تطبيق</span>
+              </div>
+              <div class="trust-item">
+                <span class="trust-number" data-i18n="trust_order_num">+28%</span>
+                <span class="trust-label" data-i18n="trust_order_lbl">متوسط ارتفاع قيمة الطلب بصريًا</span>
+              </div>
+              <div class="trust-item">
+                <span class="trust-number" data-i18n="trust_cloud_num">100%</span>
+                <span class="trust-label" data-i18n="trust_cloud_lbl">تحديث فوري للأسعار والتوافر السحابي</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Media Display with Direct Link to Demo -->
+          <div class="hero-media-wrapper">
+            <a href="https://amoal2030.github.io/pm2/" target="_blank" rel="noopener noreferrer" class="hero-main-card" title="انقر لاستكشاف عملائنا مباشرة">
+              <img 
+                src="./assets/aistudio/a6944493-f3c9-4239-bcb0-3863c1512755_e75cd54a.jpg" 
+                alt="تجربة ضيافة فاخرة مع منيو رقمي تفاعلي ذكي" 
+                class="hero-image"
+                referrerpolicy="no-referrer"
+              />
+              <div class="hero-media-badge">
+                <div class="badge-icon-box">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </div>
+                <div>
+                  <div class="badge-title" data-i18n="hero_badge_title">استكشف  عملاناء</div>
+                  <div class="badge-subtitle" data-i18n="hero_badge_sub">انقر لفتح نموذج المنيو الحي في علامة تبويب جديدة ↗</div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. Core Services Section
+         ====================================================================== -->
+    <section class="section section-services" id="services">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" data-i18n="services_kicker">ما نقدمه لمنشأتك</span>
+          <h2 class="section-title" data-i18n="services_title">حلول متكاملة لعرض وتطوير قائمة طعامك</h2>
+          <p class="section-desc" data-i18n="services_desc">
+            نجمع بين أناقة التصميم المعماري للعلامات التجارية والتقنيات البرمجية فائقة السرعة لتقديم تجربة عميل لا تُنسى.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          
+          <!-- Service 01 -->
+          <div class="service-card">
+            <div class="service-num">01.</div>
+            <h3 class="service-title" data-i18n="service_1_title">تصميم مخصص يعكس هوية علامتك التجارية</h3>
+            <p class="service-desc" data-i18n="service_1_desc">
+              نصمم واجهة المنيو الرقمي بألوان وخطوط وفلسفة مطعمك، بعيداً عن القوالب الجاهزة المكررة، لنضمن تجربة بصرية متناغمة مع ديكور المكان وأسلوب الضيافة.
+            </p>
+            <ul class="service-points">
+              <li class="service-point-item">
+                <span class="service-point-bullet">✓</span>
+                <span data-i18n="service_1_p1">تخصيص الخطوط والرموز واللوجو بدقة فائقة</span>
+              </li>
+              <li class="service-point-item">
+                <span class="service-point-bullet">✓</span>
+                <span data-i18n="service_1_p2">عرض صور احترافية بدقة عالية تفتح الشهية</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service 02 -->
+          <div class="service-card">
+            <div class="service-num">02.</div>
+            <h3 class="service-title" data-i18n="service_2_title">رموز QR ذكية ومجهزة للطباعة الفاخرة</h3>
+            <p class="service-desc" data-i18n="service_2_desc">
+              نوفر رموز استجابة سريعة متجهة (Vector QR) قابلة للطباعة والنقش بدقة متناهية على الاكريليك، الخشب، الرخام، وحوامل الطاولات الراقية دون تشويش.
+            </p>
+            <ul class="service-points">
+              <li class="service-point-item">
+                <span class="service-point-bullet">✓</span>
+                <span data-i18n="service_2_p1">تخصيص شعار المنشأة بمنتصف الرمز</span>
+              </li>
+              <li class="service-point-item">
+                <span class="service-point-bullet">✓</span>
+                <span data-i18n="service_2_p2">ملفات جاهزة للمطابع بمقاسات متعددة</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service 03 -->
+          <div class="service-card">
+            <div class="service-num">03.</div>
+            <h3 class="service-title" data-i18n="service_3_title">مرونة التعديل الفوري للأسعار والأطباق</h3>
+            <p class="service-desc" data-i18n="service_3_desc">
+              تغيير الأسعار، إيقاف صنف نفدت كميته مؤقتًا، أو إطلاق قائمة موسمية خاصة بيوم التأسيس أو الأعياد يتم بلحظة واحدة ودون الحاجة لتغيير الرموز المطبوعة.
+            </p>
+            <ul class="service-points">
+              <li class="service-point-item">
+                <span class="service-point-bullet">✓</span>
+                <span data-i18n="service_3_p1">تحديث سحابي فوري يظهر مباشرة لكل زائر</span>
+              </li>
+              <li class="service-point-item">
+                <span class="service-point-bullet">✓</span>
+                <span data-i18n="service_3_p2">دعم قوائم الغداء الخاصة وعروض نهاية الأسبوع</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service 04 -->
+          <div class="service-card">
+            <div class="service-num">04.</div>
+            <h3 class="service-title" data-i18n="service_4_title">سرعة تحميل قياسية وتوافق تام مع الأجهزة</h3>
+            <p class="service-desc" data-i18n="service_4_desc">
+              تصفح سريع وخفيف لا يتطلب تحميل أي تطبيقات من المتاجر، متوافق مع كافة أنظمة هواتف أبل وأندرويد مع حفظ تفضيلات اللغة والسلاسة المطلقة.
+            </p>
+            <ul class="service-points">
+              <li class="service-point-item">
+                <span class="service-point-bullet">✓</span>
+                <span data-i18n="service_4_p1">فتح القائمة في أقل من 500 ميلي ثانية</span>
+              </li>
+              <li class="service-point-item">
+                <span class="service-point-bullet">✓</span>
+                <span data-i18n="service_4_p2">دعم السعرات الحرارية ومسببات الحساسية بدقة</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. Why Choose Us Section
+         ====================================================================== -->
+    <section class="section section-muted" id="why-us">
+      <div class="container">
+        <div class="why-grid">
+          
+          <!-- Features List -->
+          <div>
+            <div class="section-header">
+              <span class="section-kicker" data-i18n="why_kicker">القيمة الحقيقية لمنشأتك</span>
+              <h2 class="section-title" data-i18n="why_title">لماذا تختار منصة «منيوم أصناف»؟</h2>
+              <p class="section-desc" data-i18n="why_desc">
+                صممنا المنصة لتكون شريكاً استراتيجياً يعزز أرباح المطاعم والمقاهي، ويختصر الوقت وتكاليف التشغيل.
+              </p>
+            </div>
+
+            <div class="why-features-list">
+              <div class="why-item">
+                <div class="why-icon-box">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+                <div class="why-item-content">
+                  <h4 data-i18n="why_1_title">إلغاء تكاليف الطباعة المتكررة</h4>
+                  <p data-i18n="why_1_desc">توقف عن هدر الميزانيات على إعادة طباعة المنيو الورقي مع كل تغيير في التكلفة أو إضافة طبق جديد؛ المنيو الرقمي يستمر معك لسنوات بتعديل لا نهائي.</p>
+                </div>
+              </div>
+
+              <div class="why-item">
+                <div class="why-icon-box">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                </div>
+                <div class="why-item-content">
+                  <h4 data-i18n="why_2_title">رفع متوسط قيمة سلة العميل (Upselling)</h4>
+                  <p data-i18n="why_2_desc">الصور الفاخرة المرفقة بوصف غني بالأعشاب والتحضير تشجع الزائر على تجربة الأطباق المميزة والمشروبات والحلويات المرافقة بنسبة تزيد عن 30%.</p>
+                </div>
+              </div>
+
+              <div class="why-item">
+                <div class="why-icon-box">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                </div>
+                <div class="why-item-content">
+                  <h4 data-i18n="why_3_title">ثنائية اللغة وتوافق اشتراطات الهيئة</h4>
+                  <p data-i18n="why_3_desc">دعم كامل للغتين العربية والإنجليزية مع إبراز السعرات الحرارية ومعلومات الحساسية بوضوح تام، بما يتوافق مع أعلى معايير الضيافة واللوائح التنظيمية.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparison Metric Card -->
+          <div>
+            <div class="comparison-card">
+              <h3 data-i18n="comp_title">مقارنة الأداء والتشغيل</h3>
+              
+              <div class="comparison-stats">
+                <div class="comp-stat-box">
+                  <div class="comp-stat-val" data-i18n="comp_stat_1_val">100%</div>
+                  <div class="comp-stat-label" data-i18n="comp_stat_1_lbl">توفير في نفقات طباعة أوراق المنيو والمجلدات الجلدية</div>
+                </div>
+                <div class="comp-stat-box">
+                  <div class="comp-stat-val" data-i18n="comp_stat_2_val">&lt; 3 ثوانٍ</div>
+                  <div class="comp-stat-label" data-i18n="comp_stat_2_lbl">متوسط وقت وصول الضيف لقائمته المفضلة بعد الجلوس</div>
+                </div>
+                <div class="comp-stat-box">
+                  <div class="comp-stat-val" data-i18n="comp_stat_3_val">0 تحميل</div>
+                  <div class="comp-stat-label" data-i18n="comp_stat_3_lbl">يعمل فورًا داخل متصفح Safari أو Chrome بدون متجر التطبيقات</div>
+                </div>
+                <div class="comp-stat-box">
+                  <div class="comp-stat-val" data-i18n="comp_stat_4_val">+35%</div>
+                  <div class="comp-stat-label" data-i18n="comp_stat_4_lbl">زيادة في طلبات الحلويات والمشروبات الجانبية</div>
+                </div>
+              </div>
+
+              <div class="comp-quote" data-i18n="comp_quote">
+                «المنيو ليس مجرد قائمة أسعار، بل هو أول حديث يدور بين الشيف والضيف على الطاولة. جعله رقميًا وأنيقًا يترك انطباعًا بالفخامة من اللحظة الأولى.»
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. Dedicated Menu Study Request Section (EmailJS Integrated)
+         ====================================================================== -->
+    <section class="section section-study" id="menu-study">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-kicker" data-i18n="study_kicker">خطوة البداية لمشروعك</span>
+          <h2 class="section-title" data-i18n="study_title">اطلب دراسة قائمتك وتجهيز منيو احترافي</h2>
+          <p class="section-desc" data-i18n="study_desc">
+            أرسل بيانات مطعمك أو مقهاك اليوم، وسيقوم فريقنا المتخصص بدراسة قائمتك وتجهيز نموذج تجريبي متكامل يتناسب مع هوية علامتك التجارية، دون أي التزام مسبق.
+          </p>
+        </div>
+
+        <div class="study-grid">
+          
+          <!-- Study Info Panel -->
+          <div class="study-info-card">
+            <div class="study-info-header">
+              <span class="study-badge" data-i18n="study_badge">خدمة استشارية متخصصة</span>
+              <h3 class="study-info-title" data-i18n="study_card_title">ماذا ستحصل عليه عند إرسال طلبك؟</h3>
+              <p class="study-info-text" data-i18n="study_card_text">
+                نحن لا نكتفي برفع أسماء الأطباق، بل نعيد هندسة تجربة ضيوفكم من خلال دراسة فنية متأنية لقائمتكم تشمل:
+              </p>
+            </div>
+
+            <div class="study-steps-list">
+              <div class="study-step-item">
+                <div class="study-step-num">01</div>
+                <div class="study-step-content">
+                  <h4 data-i18n="study_step_1_title">تدقيق وهندسة تصنيفات القائمة</h4>
+                  <p data-i18n="study_step_1_desc">ترتيب الأصناف والأطباق التوقيعية بما يحفز زيادة متوسط الفاتورة ويسهل اختيار العميل في ثوانٍ.</p>
+                </div>
+              </div>
+
+              <div class="study-step-item">
+                <div class="study-step-num">02</div>
+                <div class="study-step-content">
+                  <h4 data-i18n="study_step_2_title">تصميم نموذج تجريبي بهوية علامتك</h4>
+                  <p data-i18n="study_step_2_desc">تطبيق درجات ألوانكم، الخطوط، الشعار، وطريقة عرض الصور بما يتناغم مع ديكور طاولاتكم.</p>
+                </div>
+              </div>
+
+              <div class="study-step-item">
+                <div class="study-step-num">03</div>
+                <div class="study-step-content">
+                  <h4 data-i18n="study_step_3_title">رابط تجريبي حي ورمز QR مخصص</h4>
+                  <p data-i18n="study_step_3_desc">إرسال معاينة حية تتصفحها مباشرة على هاتفك لتجربة السرعة والسلاسة قبل اتخاذ أي قرار.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="study-guarantee-strip">
+              <div class="guarantee-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span data-i18n="guarantee_1">دراسة مجانية 100%</span>
+              </div>
+              <div class="guarantee-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span data-i18n="guarantee_2">رد سريع خلال ساعتي عمل</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+              <a href="#quick-inquiry" class="btn" style="background-color: var(--gold-primary); color: var(--brand-forest); font-weight: 700;">
+                <span data-i18n="study_btn_inquiry">استفسار مباشر وسريع</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </a>
+              <a href="https://wa.me/966541821068" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="border-color: rgba(255,255,255,0.4); color: #FFFFFF;">
+                <span data-i18n="study_btn_whatsapp">واتساب: <span dir="ltr">+966 54 182 1068</span> ↗</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6. FAQ Section
+         ====================================================================== -->
+    <section class="section section-faq" id="faq">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-kicker" data-i18n="faq_kicker">إجابات واضحة</span>
+          <h2 class="section-title" data-i18n="faq_title">الأسئلة الشائعة</h2>
+          <p class="section-desc" data-i18n="faq_desc">
+            كل ما يهم أصحاب المطاعم والمقاهي معرفته قبل إطلاق المنيو الرقمي.
+          </p>
+        </div>
+
+        <div class="faq-container">
+          
+          <div class="faq-item active">
+            <button type="button" class="faq-question-btn">
+              <span data-i18n="faq_q1">هل يحتاج العميل لتحميل تطبيق لاستعراض المنيو؟</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq_a1">
+              لا، مطلقاً. يفتح المنيو فوراً عبر متصفح الهاتف بمجرد توجيه كاميرا الهاتف إلى رمز الاستجابة السريعة (QR Code) الموجود على الطاولة أو عند الكاونتر، دون الحاجة لتحميل أي ملف أو تطبيق.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn">
+              <span data-i18n="faq_q2">كيف يمكنني تعديل الأسعار أو إضافة أصناف جديدة؟</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq_a2">
+              يتم التعديل سحابياً وبشكل فوري؛ بمجرد تحديث أي سعر أو صنف أو صورة، يظهر التحديث لجميع الزوار على الفور دون الحاجة لتغيير أو إعادة طباعة رموز الـ QR على الطاولات.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn">
+              <span data-i18n="faq_q3">هل يمكن تخصيص تصميم المنيو ليطابق هوية مطعمنا بدقة؟</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq_a3">
+              نعم، في منصة «منيوم أصناف» نقوم ببناء هوية رقمية متكاملة تشمل درجات ألوان علامتك، الخطوط الخاصة بك، وترتيب الأقسام بالشكل الذي يلائم أسلوب الضيافة لديكم.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn">
+              <span data-i18n="faq_q4">هل المنيو يدعم كلاً من اللغتين العربية والإنجليزية؟</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq_a4">
+              بالتأكيد، تدعم المنصة التبديل السلس بين اللغتين العربية والإنجليزية، مع وضوح مسميات الأطباق والمكونات والسعرات ومسببات الحساسية لكلا اللغتين.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         7. Contact & Direct Channels Section
+         ====================================================================== -->
+    <section class="section section-muted" id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          
+          <!-- Contact Info & Direct Channels -->
+          <div class="contact-info-panel">
+            <div>
+              <span class="section-kicker" data-i18n="contact_kicker">خطوتك التالية</span>
+              <h2 class="section-title" data-i18n="contact_title">ابدأ مشروعك الرقمي اليوم</h2>
+              <p class="section-desc" data-i18n="contact_desc">
+                فريقنا المتخصص في الحلول الرقمية لقطاع الأغذية والمشروبات جاهز لمساعدتكم في تحويل قائمة مطعمكم أو مقهاكم إلى تحفة رقمية أنيقة.
+              </p>
+
+              <div class="contact-channels">
+                <!-- Channel 1: WhatsApp Direct -->
+                <a href="https://wa.me/966541821068" id="whatsapp-direct-btn" target="_blank" rel="noopener noreferrer" class="channel-card">
+                  <div class="channel-icon" style="background-color: rgba(37, 211, 102, 0.15); color: #25D366;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                  </div>
+                  <div class="channel-details">
+                    <h5 data-i18n="ch_wa_title">المحادثة المباشرة عبر واتساب</h5>
+                    <p dir="ltr" style="text-align: right; font-weight: 700; color: var(--brand-forest); font-size: 0.95rem;">+966 54 182 1068</p>
+                    <p style="font-size: 0.8rem; color: var(--text-subtle);" data-i18n="ch_wa_sub">رد سريع وفوري عبر فريق الاستشارات</p>
+                  </div>
+                </a>
+
+                <!-- Channel 3: Direct Email -->
+                <a href="mailto:amoal2030@gmail.com" class="channel-card">
+                  <div class="channel-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
+                  </div>
+                  <div class="channel-details">
+                    <h5 data-i18n="ch_email_title">البريد الإلكتروني المباشر</h5>
+                    <p dir="ltr" style="text-align: right; font-weight: 600; color: var(--brand-forest); font-size: 0.92rem;">amoal2030@gmail.com</p>
+                    <p style="font-size: 0.8rem; color: var(--text-subtle);" data-i18n="ch_email_sub">لاستقبال القوائم وملفات الهوية والطلبات</p>
+                  </div>
+                </a>
+
+                <!-- Channel 4: HQ Location -->
+                <div class="channel-card">
+                  <div class="channel-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                  </div>
+                  <div class="channel-details">
+                    <h5 data-i18n="ch_hq_title">المقر الرئيسي</h5>
+                    <p data-i18n="ch_hq_desc">المملكة العربية السعودية · الرياض · طريق الملك فهد</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Consultation Form (id="quick-inquiry") -->
+          <div class="contact-form-card" id="quick-inquiry">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h3 style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: var(--brand-forest); margin-bottom: 0;" data-i18n="form_title">
+                استفسار مباشر وسريع
+              </h3>
+              <span style="background: rgba(194, 155, 74, 0.14); color: var(--brand-forest); font-size: 0.8rem; font-weight: 700; padding: 0.35rem 0.85rem; border-radius: var(--radius-full); border: 1px solid var(--gold-border);" data-i18n="form_fast_badge">
+                ⚡ رد سريع خلال وقت وجيز
+              </span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem;" data-i18n="form_desc">
+              إذا كان لديك استفسار أو ترغب في بدء مشروعك الرقمي معنا، اترك بياناتك وسنعاود الاتصال بك فوراً.
+            </p>
+
+            <div class="form-alert-success" id="form-alert-success"></div>
+
+            <form id="consultation-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="client-name" data-i18n="field_name_label">الاسم الكريم *</label>
+                  <input type="text" id="client-name" class="form-control" placeholder="مثال: تركي المطيري" data-i18n-placeholder="field_name_ph" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="client-brand" data-i18n="field_brand_label">اسم المنشأة *</label>
+                  <input type="text" id="client-brand" class="form-control" placeholder="مثال: كافيه البستان" data-i18n-placeholder="field_brand_ph" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="client-phone" data-i18n="field_phone_label">رقم الجوال أو الواتساب *</label>
+                  <input type="tel" id="client-phone" class="form-control" placeholder="05XXXXXXXX" required dir="ltr" style="text-align: right;" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="client-type" data-i18n="field_type_label">نوع النشاط *</label>
+                  <input type="text" id="client-type" class="form-control" placeholder="مثال: مطعم فاخر، كافيه مختص، متجر حلويات..." data-i18n-placeholder="field_type_ph" required />
+                </div>
+              </div>
+
+              <!-- Menu Type Option (1. موقع / 2. تطبيق) -->
+              <div class="form-group">
+                <label class="form-label" data-i18n="field_platform_label">نوع المنيو المطلوب *</label>
+                <div class="menu-type-grid">
+                  <label class="menu-type-card active" id="label-platform-web">
+                    <input type="radio" name="menu-platform" value="موقع" id="platform-web" checked />
+                    <div class="menu-type-content">
+                      <span class="menu-type-icon">🌐</span>
+                      <div>
+                        <strong data-i18n="platform_web_title">1. موقع إلكتروني (Web Menu)</strong>
+                        <p data-i18n="platform_web_desc">تصفح سريع عبر مسح رمز QR فوراً بدون تطبيقات</p>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="menu-type-card" id="label-platform-app">
+                    <input type="radio" name="menu-platform" value="تطبيق" id="platform-app" />
+                    <div class="menu-type-content">
+                      <span class="menu-type-icon">📱</span>
+                      <div>
+                        <strong data-i18n="platform_app_title">2. تطبيق مخصص (Mobile App)</strong>
+                        <p data-i18n="platform_app_desc">تطبيق مستقل للهواتف الذكية على متاجر التطبيقات</p>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Items Count Input (Appears when 'موقع' is selected) -->
+              <div class="form-group" id="items-count-container">
+                <label class="form-label" for="items-count">
+                  <span data-i18n="field_items_label">حدد عدد الأصناف في قائمتك *</span>
+                  <span class="rate-badge" data-i18n="items_rate_badge">1$ لكل صنف</span>
+                </label>
+                <input 
+                  type="number" 
+                  id="items-count" 
+                  class="form-control" 
+                  placeholder="أدخل عدد أصناف القائمة (مثال: 50)" 
+                  data-i18n-placeholder="field_items_ph"
+                  min="1" 
+                  step="1"
+                />
+              </div>
+
+              <!-- Live Calculation Box (Appears directly above 'إرسال الاستفسار السريع') -->
+              <div class="price-estimate-box" id="price-estimate-box" style="display: none;">
+                <div class="estimate-header">
+                  <div class="estimate-title">
+                    <span class="calc-icon">⚡</span>
+                    <span data-i18n="calc_title">تكلفة المنيو التقديرية (الموقع الإلكتروني)</span>
+                  </div>
+                  <span class="estimate-rate-pill" data-i18n="calc_rate_pill">1$ / صنف</span>
+                </div>
+
+                <div class="estimate-formula-row">
+                  <span id="formula-items-text">0 صنف</span>
+                  <span>×</span>
+                  <span>1$</span>
+                  <span>=</span>
+                  <span class="formula-highlight" id="formula-usd-sub">$0.00</span>
+                </div>
+
+                <div class="estimate-cards-row">
+                  <div class="estimate-card usd-card">
+                    <div class="estimate-card-lbl" data-i18n="calc_usd_lbl">المبلغ الإجمالي بالدولار</div>
+                    <div class="estimate-card-amount">
+                      <span class="num" id="estimate-usd">0.00</span>
+                      <span class="sym">$</span>
+                    </div>
+                  </div>
+
+                  <div class="estimate-card sar-card">
+                    <div class="estimate-card-lbl" data-i18n="calc_sar_lbl">المبلغ الإجمالي بالريال السعودي</div>
+                    <div class="estimate-card-amount">
+                      <span class="num" id="estimate-sar">0.00</span>
+                      <span class="sym">ر.س</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="estimate-footer-note" data-i18n="calc_footer">
+                  ✓ يتم الحساب فورياً: عدد الأصناف × 1$ (بسعر الصرف المعتمد: 1$ = 3.75 ريال سعودي).
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="client-notes" data-i18n="field_notes_label">ملاحظاتك أو استفسارك (اختياري)</label>
+                <textarea id="client-notes" class="form-control" rows="3" placeholder="اكتب استفسارك هنا وسيجيب عليه مستشارنا فورًا..." data-i18n-placeholder="field_notes_ph"></textarea>
+              </div>
+
+              <button type="submit" id="consultation-submit-btn" class="btn btn-primary" style="width: 100%; padding: 0.95rem;">
+                <span id="consultation-btn-text" data-i18n="btn_submit_inquiry">إرسال الاستفسار السريع</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+
+              <div style="margin-top: 1.15rem; text-align: center; font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+                <span data-i18n="or_wa">أو تواصل فورًا عبر واتساب:</span>
+                <a href="https://wa.me/966541821068" target="_blank" rel="noopener noreferrer" style="color: #25D366; font-weight: 700; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.35rem;" dir="ltr">
+                  <span>+966 54 182 1068</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                  </svg>
+                </a>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         8. Footer
+         ====================================================================== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          
+          <div class="footer-brand">
+            <div style="display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.15rem;">
+              <div class="brand-logo-frame" style="width: 50px; height: 50px; border-color: var(--gold-primary); background-color: #FAF7F2;">
+                <img src="./assets/aistudio/image_659bcb12.png" alt="شعار منيوم أصناف" class="brand-logo-img" />
+              </div>
+              <div style="display: flex; flex-direction: column; line-height: 1.2;">
+                <h4 style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #FFFFFF;" data-i18n="brand_name">منيوم <span style="color: var(--gold-primary);">أصناف</span></h4>
+                <span style="font-size: 0.65rem; letter-spacing: 1.8px; color: var(--gold-primary); font-weight: 700; text-transform: uppercase;" data-i18n="brand_tagline">MENU ASNAF</span>
+              </div>
+            </div>
+            <p data-i18n="footer_desc">
+              منصة عربية رائدة في تقديم حلول قوائم الطعام الرقمية الذكية والتجارب التفاعلية التي تلائم تطلعات قطاع المطاعم والمقاهي الحديث في العالم العربي.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5 data-i18n="footer_quick_links">روابط سريعة</h5>
+            <ul class="footer-links">
+              <li><a href="#hero" data-i18n="nav_home">الرئيسية</a></li>
+              <li><a href="https://amoal2030.github.io/pm2/" target="_blank" rel="noopener noreferrer" style="color: var(--gold-primary); font-weight: 600;" data-i18n="nav_demo">استكشف  عملاناء ↗</a></li>
+              <li><a href="#services" data-i18n="nav_services">خدماتنا</a></li>
+              <li><a href="#why-us" data-i18n="nav_why_us">لماذا أصناف؟</a></li>
+              <li><a href="#menu-study" data-i18n="nav_study">طلب دراسة قائمة الطعام</a></li>
+              <li><a href="#quick-inquiry" data-i18n="nav_inquiry">استفسار مباشر وسريع</a></li>
+              <li><a href="#faq" data-i18n="nav_faq">الأسئلة الشائعة</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5 data-i18n="footer_supported">الأنشطة المدعومة</h5>
+            <ul class="footer-links">
+              <li><a href="#services" data-i18n="footer_act_1">المطاعم الفاخرة</a></li>
+              <li><a href="#services" data-i18n="footer_act_2">المقاهي ومحامص القهوة</a></li>
+              <li><a href="#services" data-i18n="footer_act_3">محلات الحلويات والمخابز</a></li>
+              <li><a href="#services" data-i18n="footer_act_4">المطابخ السحابية والفنادق</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5 data-i18n="footer_contact_title">التواصل والدعم</h5>
+            <ul class="footer-links">
+              <li><a href="#quick-inquiry" data-i18n="nav_inquiry">استفسار مباشر وسريع</a></li>
+              <li><a href="https://wa.me/966541821068" target="_blank" rel="noopener noreferrer">واتساب: <span dir="ltr">+966 54 182 1068</span></a></li>
+              <li><a href="tel:+966541821068">اتصال: <span dir="ltr">+966 54 182 1068</span></a></li>
+              <li><a href="mailto:amoal2030@gmail.com">البريد: amoal2030@gmail.com</a></li>
+              <li><span style="color: rgba(255,255,255,0.6); font-size: 0.85rem;" data-i18n="footer_country">المملكة العربية السعودية</span></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="footer-bottom">
+          <div data-i18n="footer_rights">
+            جميع الحقوق محفوظة © 2026 منيوم أصناف (Menu Asnaf).
+          </div>
+          <div style="display: flex; gap: 1.5rem;">
+            <span data-i18n="footer_badge_1">تجربة رقمية عربية فاخرة</span>
+            <span>·</span>
+            <span data-i18n="footer_badge_2">متوافق مع معايير الضيافة العالمية</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating Direct WhatsApp Quick Action Button -->
+    <a href="https://wa.me/966541821068?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A5%D8%B7%D9%84%D8%A7%D9%82%20%D9%85%D9%86%D9%8A%D9%88%20%D8%B1%D9%82%D9%85%D9%8A%20%D8%A7%D8%AD%D8%AA%D8%B1%D8%A7%D9%81%D9%8A%20%D9%84%D9%85%D9%86%D8%B4%D8%A3%D8%AA%D9%8A%20%D8%B9%D8%A8%D8%B1%20%C2%AB%D9%85%D9%86%D9%8A%D9%88%D9%85%20%D8%A3%D8%B5%D9%86%D8%A7%D9%81%C2%BB" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-btn" aria-label="تواصل مباشر عبر واتساب">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+      </svg>
+      <span class="floating-whatsapp-text" data-i18n="floating_wa_text">تواصل واتساب مباشر</span>
+    </a>
+
+    <!-- Pure Vanilla JavaScript Execution -->
+    <script type="module" src="./src/script.js"></script>
+  </body>
+</html>
