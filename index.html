@@ -670,46 +670,180 @@
                 </div>
               </div>
 
-              <!-- Items Count Input (Appears when 'موقع' is selected) -->
-              <div class="form-group" id="items-count-container">
-                <label class="form-label" for="items-count">
-                  <span data-i18n="field_items_label">حدد عدد الأصناف في قائمتك *</span>
-                  <span class="rate-badge" data-i18n="items_rate_badge">1$ لكل صنف</span>
+              <!-- Pages Count Input & Presets -->
+              <div class="form-group" id="pages-count-container">
+                <label class="form-label" for="pages-count">
+                  <span data-i18n="field_pages_label">حدد عدد صفحات أو أقسام المنيو *</span>
+                  <span class="rate-badge" data-i18n="pages_rate_badge">1$ لكل صفحة</span>
                 </label>
-                <input 
-                  type="number" 
-                  id="items-count" 
-                  class="form-control" 
-                  placeholder="أدخل عدد أصناف القائمة (مثال: 50)" 
-                  data-i18n-placeholder="field_items_ph"
-                  min="1" 
-                  step="1"
-                />
+
+                <div class="pages-input-row">
+                  <button type="button" class="btn-step" id="btn-page-dec" aria-label="تقليل عدد الصفحات">-</button>
+                  <input 
+                    type="number" 
+                    id="pages-count" 
+                    class="form-control" 
+                    style="text-align: center; font-weight: 700; font-size: 1.1rem;"
+                    value="5" 
+                    min="1" 
+                    max="100" 
+                    step="1"
+                    placeholder="5" 
+                    data-i18n-placeholder="field_pages_ph"
+                    required
+                  />
+                  <button type="button" class="btn-step" id="btn-page-inc" aria-label="زيادة عدد الصفحات">+</button>
+                </div>
+
+                <!-- Quick Presets -->
+                <div class="pages-preset-pills" id="pages-preset-pills">
+                  <button type="button" class="page-pill" data-pages="1"><span data-i18n="preset_1_page">1 صفحة</span></button>
+                  <button type="button" class="page-pill" data-pages="3"><span data-i18n="preset_3_pages">3 صفحات</span></button>
+                  <button type="button" class="page-pill active" data-pages="5"><span data-i18n="preset_5_pages">5 صفحات</span></button>
+                  <button type="button" class="page-pill" data-pages="10"><span data-i18n="preset_10_pages">10 صفحات</span></button>
+                  <button type="button" class="page-pill" data-pages="15"><span data-i18n="preset_15_pages">15 صفحة</span></button>
+                  <button type="button" class="page-pill" data-pages="20"><span data-i18n="preset_20_pages">20 صفحة</span></button>
+                </div>
+                <small class="field-hint" data-i18n="pages_hint">الصفحة تعادل قسماً مستقلاً (مثل: المقبلات، الأطباق الرئيسية، المشروبات، الحلويات، الفطور...).</small>
               </div>
 
-              <!-- Live Calculation Box (Appears directly above 'إرسال الاستفسار السريع') -->
-              <div class="price-estimate-box" id="price-estimate-box" style="display: none;">
+              <!-- Extra Features / Add-ons Selection (مزايا أخرى) -->
+              <div class="form-group" id="features-selection-container">
+                <label class="form-label">
+                  <span data-i18n="field_features_label">اختر المزايا والخدمات الإضافية (اختياري)</span>
+                  <span class="features-badge" data-i18n="features_badge">تُحسب تلقائياً</span>
+                </label>
+
+                <div class="features-grid" id="features-grid">
+                  <!-- Feature 1: Custom Domain -->
+                  <label class="feature-checkbox-card" id="card-feat-domain">
+                    <input type="checkbox" name="extra-feature" value="domain" data-price="15" data-title-ar="دومين خاص باسم مطعمك" data-title-en="Custom Domain Name" />
+                    <div class="feature-card-body">
+                      <div class="feature-card-header">
+                        <span class="feature-icon">🌐</span>
+                        <span class="feature-title" data-i18n="feat_domain_title">دومين ونطاق خاص باسم مطعمك (.com / .sa)</span>
+                        <span class="feature-price-tag">+15$</span>
+                      </div>
+                      <p class="feature-desc" data-i18n="feat_domain_desc">ربط المنيو بنطاق مخصص لعلامتك التجارية</p>
+                    </div>
+                  </label>
+
+                  <!-- Feature 2: Bilingual (AR + EN) -->
+                  <label class="feature-checkbox-card" id="card-feat-bilingual">
+                    <input type="checkbox" name="extra-feature" value="bilingual" data-price="10" data-title-ar="ثنائية اللغة (عربي + إنجليزي)" data-title-en="Bilingual (Arabic + English)" />
+                    <div class="feature-card-body">
+                      <div class="feature-card-header">
+                        <span class="feature-icon">🌍</span>
+                        <span class="feature-title" data-i18n="feat_bilingual_title">ثنائية اللغة بالكامل (عربي + إنجليزي)</span>
+                        <span class="feature-price-tag">+10$</span>
+                      </div>
+                      <p class="feature-desc" data-i18n="feat_bilingual_desc">ترجمة فندقية متقنة ومراجعة لمسميات الأطباق والمكونات</p>
+                    </div>
+                  </label>
+
+                  <!-- Feature 3: WhatsApp Ordering -->
+                  <label class="feature-checkbox-card" id="card-feat-whatsapp">
+                    <input type="checkbox" name="extra-feature" value="whatsapp_order" data-price="15" data-title-ar="طلب مباشر عبر واتساب" data-title-en="WhatsApp Direct Ordering" />
+                    <div class="feature-card-body">
+                      <div class="feature-card-header">
+                        <span class="feature-icon">📱</span>
+                        <span class="feature-title" data-i18n="feat_wa_title">طلب مباشر عبر واتساب للطاولات أو السفري</span>
+                        <span class="feature-price-tag">+15$</span>
+                      </div>
+                      <p class="feature-desc" data-i18n="feat_wa_desc">إرسال سلة الطلبات ورقم الطاولة مباشرة إلى واتساب الكاشير</p>
+                    </div>
+                  </label>
+
+                  <!-- Feature 4: Food Photos Retouching -->
+                  <label class="feature-checkbox-card" id="card-feat-photos">
+                    <input type="checkbox" name="extra-feature" value="photos" data-price="10" data-title-ar="تحسين ومعالجة صور الأطباق" data-title-en="Culinary Photos Retouching" />
+                    <div class="feature-card-body">
+                      <div class="feature-card-header">
+                        <span class="feature-icon">📸</span>
+                        <span class="feature-title" data-i18n="feat_photos_title">معالجة وتحسين صور الأطباق باحترافية</span>
+                        <span class="feature-price-tag">+10$</span>
+                      </div>
+                      <p class="feature-desc" data-i18n="feat_photos_desc">تعديل الإضاءة والألوان والخلفيات لتبدو الأطباق شهية وجذابة</p>
+                    </div>
+                  </label>
+
+                  <!-- Feature 5: Calories & Allergens -->
+                  <label class="feature-checkbox-card" id="card-feat-allergens">
+                    <input type="checkbox" name="extra-feature" value="allergens" data-price="10" data-title-ar="دليل السعرات والحساسية" data-title-en="Calorie & Allergen Guide" />
+                    <div class="feature-card-body">
+                      <div class="feature-card-header">
+                        <span class="feature-icon">🥗</span>
+                        <span class="feature-title" data-i18n="feat_allergens_title">دليل السعرات ومسببات الحساسية</span>
+                        <span class="feature-price-tag">+10$</span>
+                      </div>
+                      <p class="feature-desc" data-i18n="feat_allergens_desc">متوافق مع اشتراطات الهيئة العامة للغذاء والدواء</p>
+                    </div>
+                  </label>
+
+                  <!-- Feature 6: Vector QR & Print Ready -->
+                  <label class="feature-checkbox-card" id="card-feat-qr">
+                    <input type="checkbox" name="extra-feature" value="vector_qr" data-price="5" data-title-ar="رمز QR مخصص مع الشعار" data-title-en="Custom Vector QR with Logo" />
+                    <div class="feature-card-body">
+                      <div class="feature-card-header">
+                        <span class="feature-icon">🏷️</span>
+                        <span class="feature-title" data-i18n="feat_qr_title">رمز QR فكتور مخصص مع الشعار للطباعة الفاخرة</span>
+                        <span class="feature-price-tag">+5$</span>
+                      </div>
+                      <p class="feature-desc" data-i18n="feat_qr_desc">ملفات Vector عالية الدقة للنقش والطباعة على الاكريليك والخشب</p>
+                    </div>
+                  </label>
+
+                  <!-- Feature 7: Instant Cloud Control & Support -->
+                  <label class="feature-checkbox-card" id="card-feat-cloud">
+                    <input type="checkbox" name="extra-feature" value="cloud_support" data-price="20" data-title-ar="تعديل سحابي فوري + دعم فني سنة" data-title-en="Cloud Updates & 1-Year Support" />
+                    <div class="feature-card-body">
+                      <div class="feature-card-header">
+                        <span class="feature-icon">⚡</span>
+                        <span class="feature-title" data-i18n="feat_cloud_title">تعديل سحابي فوري + دعم فني لمدة عام</span>
+                        <span class="feature-price-tag">+20$</span>
+                      </div>
+                      <p class="feature-desc" data-i18n="feat_cloud_desc">تغيير الأسعار وإيقاف الأصناف فوراً مع دعم فني مستمر</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Live Automatic Calculation Box -->
+              <div class="price-estimate-box" id="price-estimate-box">
                 <div class="estimate-header">
                   <div class="estimate-title">
                     <span class="calc-icon">⚡</span>
-                    <span data-i18n="calc_title">تكلفة المنيو التقديرية (الموقع الإلكتروني)</span>
+                    <span data-i18n="calc_title">تكلفة المنيو التقديرية التلقائية</span>
                   </div>
-                  <span class="estimate-rate-pill" data-i18n="calc_rate_pill">1$ / صنف</span>
+                  <span class="estimate-rate-pill" id="calc-summary-pill" data-i18n="calc_rate_pill">1$ / صفحة + المزايا</span>
                 </div>
 
-                <div class="estimate-formula-row">
-                  <span id="formula-items-text">0 صنف</span>
-                  <span>×</span>
-                  <span>1$</span>
-                  <span>=</span>
-                  <span class="formula-highlight" id="formula-usd-sub">$0.00</span>
+                <!-- Detailed Breakdown -->
+                <div class="estimate-breakdown-list">
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">
+                      <span>📄</span>
+                      <span id="breakdown-pages-text">5 صفحات (1$ / صفحة)</span>
+                    </span>
+                    <span class="breakdown-val" id="breakdown-pages-cost">$5.00</span>
+                  </div>
+
+                  <div class="breakdown-item" id="breakdown-features-row" style="display: none;">
+                    <span class="breakdown-label">
+                      <span>✨</span>
+                      <span id="breakdown-features-text">المزايا الإضافية المختارة (0 مزايا)</span>
+                    </span>
+                    <span class="breakdown-val" id="breakdown-features-cost">+$0.00</span>
+                  </div>
+
+                  <div class="breakdown-selected-chips" id="breakdown-selected-chips"></div>
                 </div>
 
                 <div class="estimate-cards-row">
                   <div class="estimate-card usd-card">
                     <div class="estimate-card-lbl" data-i18n="calc_usd_lbl">المبلغ الإجمالي بالدولار</div>
                     <div class="estimate-card-amount">
-                      <span class="num" id="estimate-usd">0.00</span>
+                      <span class="num" id="estimate-usd">5.00</span>
                       <span class="sym">$</span>
                     </div>
                   </div>
@@ -717,14 +851,14 @@
                   <div class="estimate-card sar-card">
                     <div class="estimate-card-lbl" data-i18n="calc_sar_lbl">المبلغ الإجمالي بالريال السعودي</div>
                     <div class="estimate-card-amount">
-                      <span class="num" id="estimate-sar">0.00</span>
+                      <span class="num" id="estimate-sar">18.75</span>
                       <span class="sym">ر.س</span>
                     </div>
                   </div>
                 </div>
 
                 <div class="estimate-footer-note" data-i18n="calc_footer">
-                  ✓ يتم الحساب فورياً: عدد الأصناف × 1$ (بسعر الصرف المعتمد: 1$ = 3.75 ريال سعودي).
+                  ✓ يتم الحساب تلقائياً: (عدد الصفحات × 1$) + تكلفة المزايا المختارة (سعر الصرف: 1$ = 3.75 ريال سعودي).
                 </div>
               </div>
 

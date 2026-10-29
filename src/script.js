@@ -416,11 +416,21 @@ function setupQuickConsultationForm() {
 
   // Platform & Calculation Elements
   const platformRadios = document.querySelectorAll('input[name="menu-platform"]');
-  const itemsContainer = document.getElementById("items-count-container");
-  const itemsInput = document.getElementById("items-count");
+  const pagesContainer = document.getElementById("pages-count-container");
+  const pagesInput = document.getElementById("pages-count");
+  const btnPageDec = document.getElementById("btn-page-dec");
+  const btnPageInc = document.getElementById("btn-page-inc");
+  const presetPills = document.querySelectorAll("#pages-preset-pills .page-pill");
+  const featuresContainer = document.getElementById("features-selection-container");
+  const featureCheckboxes = document.querySelectorAll('input[name="extra-feature"]');
+
   const estimateBox = document.getElementById("price-estimate-box");
-  const formulaItemsText = document.getElementById("formula-items-text");
-  const formulaUsdSub = document.getElementById("formula-usd-sub");
+  const breakdownPagesText = document.getElementById("breakdown-pages-text");
+  const breakdownPagesCost = document.getElementById("breakdown-pages-cost");
+  const breakdownFeaturesRow = document.getElementById("breakdown-features-row");
+  const breakdownFeaturesText = document.getElementById("breakdown-features-text");
+  const breakdownFeaturesCost = document.getElementById("breakdown-features-cost");
+  const breakdownChips = document.getElementById("breakdown-selected-chips");
   const estimateUsd = document.getElementById("estimate-usd");
   const estimateSar = document.getElementById("estimate-sar");
 
@@ -431,67 +441,178 @@ function setupQuickConsultationForm() {
   const PHONE_RAW = "966541821068";
   const EMAIL_ADDRESS = "amoal2030@gmail.com";
   const SAR_PER_USD = 3.75;
-  const RATE_PER_ITEM_USD = 1.0;
+  const RATE_PER_PAGE_USD = 1.0;
 
   // Real-time Calculation Helper
   function updatePriceEstimate() {
-    const selectedPlatform = document.querySelector('input[name="menu-platform"]:checked')?.value || "موقع";
+    const pagesCount = Math.max(1, parseInt(pagesInput?.value || "1", 10) || 1);
+    const pagesCost = pagesCount * RATE_PER_PAGE_USD;
 
-    if (selectedPlatform !== "موقع") {
-      if (estimateBox) estimateBox.style.display = "none";
-      return;
-    }
+    // Calculate selected features
+    const selectedFeatures = [];
+    let featuresCost = 0;
 
-    const count = parseInt(itemsInput?.value || "0", 10);
-
-    if (count > 0) {
-      const totalUsd = count * RATE_PER_ITEM_USD;
-      const totalSar = totalUsd * SAR_PER_USD;
-
-      const itemUnit = currentLang === 'en' ? (count === 1 ? 'item' : 'items') : 'صنف';
-      if (formulaItemsText) formulaItemsText.textContent = `${count} ${itemUnit}`;
-      if (formulaUsdSub) formulaUsdSub.textContent = `$${totalUsd.toFixed(2)}`;
-      if (estimateUsd) estimateUsd.textContent = totalUsd.toFixed(2);
-      if (estimateSar) estimateSar.textContent = totalSar.toFixed(2);
-
-      if (estimateBox) {
-        estimateBox.style.display = "block";
+    featureCheckboxes.forEach(cb => {
+      const card = cb.closest(".feature-checkbox-card");
+      if (cb.checked) {
+        if (card) card.classList.add("selected");
+        const price = parseFloat(cb.getAttribute("data-price") || "0");
+        const titleAr = cb.getAttribute("data-title-ar") || "";
+        const titleEn = cb.getAttribute("data-title-en") || "";
+        const title = currentLang === 'en' ? (titleEn || titleAr) : (titleAr || titleEn);
+        featuresCost += price;
+        selectedFeatures.push({ value: cb.value, title, price });
+      } else {
+        if (card) card.classList.remove("selected");
       }
-    } else {
-      if (estimateBox) estimateBox.style.display = "none";
+    });
+
+    const totalUsd = pagesCost + featuresCost;
+    const totalSar = totalUsd * SAR_PER_USD;
+
+    // Update breakdown: Pages
+    if (breakdownPagesText) {
+      if (currentLang === 'en') {
+        breakdownPagesText.textContent = `${pagesCount} ${pagesCount === 1 ? 'Page' : 'Pages'} ($1 / page)`;
+      } else {
+        const unit = pagesCount === 1 ? 'صفحة' : (pagesCount <= 10 ? 'صفحات' : 'صفحة');
+        breakdownPagesText.textContent = `${pagesCount} ${unit} (1$ / صفحة)`;
+      }
     }
+    if (breakdownPagesCost) {
+      breakdownPagesCost.textContent = `$${pagesCost.toFixed(2)}`;
+    }
+
+    // Update breakdown: Features
+    if (breakdownFeaturesRow) {
+      if (selectedFeatures.length > 0) {
+        breakdownFeaturesRow.style.display = "flex";
+        if (breakdownFeaturesText) {
+          breakdownFeaturesText.textContent = currentLang === 'en'
+            ? `Selected Add-ons (${selectedFeatures.length})`
+            : `المزايا الإضافية المختارة (${selectedFeatures.length})`;
+        }
+        if (breakdownFeaturesCost) {
+          breakdownFeaturesCost.textContent = `+$${featuresCost.toFixed(2)}`;
+        }
+      } else {
+        breakdownFeaturesRow.style.display = "none";
+      }
+    }
+
+    // Render chips
+    if (breakdownChips) {
+      if (selectedFeatures.length > 0) {
+        breakdownChips.innerHTML = selectedFeatures.map(f => `
+          <span class="breakdown-chip">
+            <span>✓ ${escapeHTML(f.title)}</span>
+            <strong style="color: var(--gold-primary);">+$${f.price}</strong>
+          </span>
+        `).join("");
+      } else {
+        breakdownChips.innerHTML = "";
+      }
+    }
+
+    // Total Amount Cards
+    if (estimateUsd) estimateUsd.textContent = totalUsd.toFixed(2);
+    if (estimateSar) estimateSar.textContent = totalSar.toFixed(2);
+
+    if (estimateBox) {
+      estimateBox.style.display = "block";
+    }
+
+    return { pagesCount, pagesCost, selectedFeatures, featuresCost, totalUsd, totalSar };
   }
 
-  // Expose helper globally for language switch updates
-  window.__refreshPriceEstimate = updatePriceEstimate;
+  // Sync preset pills active state
+  function syncPresets(count) {
+    presetPills.forEach(pill => {
+      const p = parseInt(pill.getAttribute("data-pages") || "0", 10);
+      if (p === count) {
+        pill.classList.add("active");
+      } else {
+        pill.classList.remove("active");
+      }
+    });
+  }
+
+  // Stepper buttons listeners
+  if (btnPageDec) {
+    btnPageDec.addEventListener("click", () => {
+      let currentVal = parseInt(pagesInput?.value || "1", 10) || 1;
+      if (currentVal > 1) {
+        currentVal -= 1;
+        if (pagesInput) pagesInput.value = currentVal;
+        syncPresets(currentVal);
+        updatePriceEstimate();
+      }
+    });
+  }
+
+  if (btnPageInc) {
+    btnPageInc.addEventListener("click", () => {
+      let currentVal = parseInt(pagesInput?.value || "1", 10) || 1;
+      currentVal += 1;
+      if (pagesInput) pagesInput.value = currentVal;
+      syncPresets(currentVal);
+      updatePriceEstimate();
+    });
+  }
+
+  // Preset pills listeners
+  presetPills.forEach(pill => {
+    pill.addEventListener("click", (e) => {
+      e.preventDefault();
+      const p = parseInt(pill.getAttribute("data-pages") || "5", 10);
+      if (pagesInput) pagesInput.value = p;
+      syncPresets(p);
+      updatePriceEstimate();
+    });
+  });
+
+  // Pages input direct typing listeners
+  if (pagesInput) {
+    pagesInput.addEventListener("input", () => {
+      const val = parseInt(pagesInput.value || "1", 10) || 1;
+      syncPresets(val);
+      updatePriceEstimate();
+    });
+    pagesInput.addEventListener("change", () => {
+      const val = Math.max(1, parseInt(pagesInput.value || "1", 10) || 1);
+      pagesInput.value = val;
+      syncPresets(val);
+      updatePriceEstimate();
+    });
+  }
+
+  // Feature checkboxes listeners
+  featureCheckboxes.forEach(cb => {
+    cb.addEventListener("change", updatePriceEstimate);
+  });
 
   // Platform Selector Event Listeners
   if (platformRadios) {
     platformRadios.forEach(radio => {
       radio.addEventListener("change", (e) => {
         const val = e.target.value;
-
         if (val === "موقع") {
           if (labelPlatformWeb) labelPlatformWeb.classList.add("active");
           if (labelPlatformApp) labelPlatformApp.classList.remove("active");
-          if (itemsContainer) itemsContainer.style.display = "block";
-          updatePriceEstimate();
         } else {
           if (labelPlatformApp) labelPlatformApp.classList.add("active");
           if (labelPlatformWeb) labelPlatformWeb.classList.remove("active");
-          if (itemsContainer) itemsContainer.style.display = "none";
-          if (estimateBox) estimateBox.style.display = "none";
         }
+        updatePriceEstimate();
       });
     });
   }
 
-  // Items count input listeners
-  if (itemsInput) {
-    itemsInput.addEventListener("input", updatePriceEstimate);
-    itemsInput.addEventListener("change", updatePriceEstimate);
-    itemsInput.addEventListener("keyup", updatePriceEstimate);
-  }
+  // Expose helper globally for language switch updates
+  window.__refreshPriceEstimate = updatePriceEstimate;
+
+  // Initial calculation on load
+  updatePriceEstimate();
 
   // Direct WhatsApp Button Default Link
   if (whatsappBtn) {
@@ -513,7 +634,6 @@ function setupQuickConsultationForm() {
     const phone = (document.getElementById("client-phone")?.value || "").trim();
     const type = (document.getElementById("client-type")?.value || "").trim();
     const platform = document.querySelector('input[name="menu-platform"]:checked')?.value || "موقع";
-    const itemsCount = parseInt(itemsInput?.value || "0", 10);
     const notes = (document.getElementById("client-notes")?.value || "").trim();
 
     if (!name || !phone || !brand || !type) {
@@ -537,18 +657,15 @@ function setupQuickConsultationForm() {
       return;
     }
 
-    // Calculate totals if platform is موقع
-    let priceDetailsText = "";
-    let totalUsdFormatted = "";
-    let totalSarFormatted = "";
+    const calc = updatePriceEstimate();
+    const isEn = currentLang === 'en';
 
-    if (platform === "موقع" && itemsCount > 0) {
-      const totalUsd = itemsCount * RATE_PER_ITEM_USD;
-      const totalSar = totalUsd * SAR_PER_USD;
-      totalUsdFormatted = `$${totalUsd.toFixed(2)}`;
-      totalSarFormatted = `${totalSar.toFixed(2)} ${currentLang === 'en' ? 'SAR' : 'ر.س'}`;
-      priceDetailsText = ` | Items: ${itemsCount} (${totalUsdFormatted} ~ ${totalSarFormatted})`;
-    }
+    // Format features list text
+    const featuresListSummary = calc.selectedFeatures.length > 0
+      ? calc.selectedFeatures.map(f => `${f.title} (+$${f.price})`).join("، ")
+      : (isEn ? "No additional features" : "بدون مزايا إضافية");
+
+    const priceDetailsText = ` | Pages: ${calc.pagesCount} ($${calc.pagesCost.toFixed(2)}) | Add-ons: ${calc.selectedFeatures.length} ($${calc.featuresCost.toFixed(2)}) | Total: $${calc.totalUsd.toFixed(2)} (~ ${calc.totalSar.toFixed(2)} SAR)`;
 
     if (submitBtn) submitBtn.disabled = true;
     if (btnText) btnText.textContent = getTranslation("btn_submitting");
@@ -557,7 +674,7 @@ function setupQuickConsultationForm() {
     try {
       const activeSender = (typeof window !== 'undefined' && window.emailjs) ? window.emailjs : emailjsBrowser;
       if (activeSender && typeof activeSender.send === 'function') {
-        const fullNotes = `[Inquiry - ${platform}]${priceDetailsText}${notes ? `\nNotes: ${notes}` : ""}`;
+        const fullNotes = `[Inquiry - ${platform}]${priceDetailsText}\nFeatures: ${featuresListSummary}${notes ? `\nNotes: ${notes}` : ""}`;
         await activeSender.send(
           EMAILJS_CONFIG.serviceId,
           EMAILJS_CONFIG.templateId,
@@ -580,18 +697,22 @@ function setupQuickConsultationForm() {
 
     // Build polite WhatsApp message in current language
     let whatsappLines;
-    if (currentLang === 'en') {
+    if (isEn) {
       whatsappLines = [
         `Hello, I would like to start my digital menu with «Menu Asnaf»:`,
         `• Name: ${name}`,
         `• Venue: ${brand}`,
         `• Business Type: ${type}`,
-        `• Required Menu: ${platform === "موقع" ? "Web Menu (Website)" : "Custom Mobile App"}`
+        `• Required Menu: ${platform === "موقع" ? "Web Menu (Website)" : "Custom Mobile App"}`,
+        `• Menu Pages: ${calc.pagesCount} pages ($${calc.pagesCost.toFixed(2)})`
       ];
-      if (platform === "موقع" && itemsCount > 0) {
-        whatsappLines.push(`• Menu Items: ${itemsCount} items`);
-        whatsappLines.push(`• Estimated Cost: ${totalUsdFormatted} (${totalSarFormatted})`);
+      if (calc.selectedFeatures.length > 0) {
+        whatsappLines.push(`• Selected Add-ons (${calc.selectedFeatures.length}):`);
+        calc.selectedFeatures.forEach(f => {
+          whatsappLines.push(`  ✓ ${f.title} (+$${f.price})`);
+        });
       }
+      whatsappLines.push(`• Total Estimated Cost: $${calc.totalUsd.toFixed(2)} (${calc.totalSar.toFixed(2)} SAR)`);
       if (notes) {
         whatsappLines.push(`• Additional Notes: ${notes}`);
       }
@@ -601,12 +722,16 @@ function setupQuickConsultationForm() {
         `• الاسم: ${name}`,
         `• المنشأة: ${brand}`,
         `• نوع النشاط: ${type}`,
-        `• نوع المنيو المطلوب: ${platform === "موقع" ? "موقع إلكتروني (Web Menu)" : "تطبيق مخصص (Mobile App)"}`
+        `• نوع المنيو المطلوب: ${platform === "موقع" ? "موقع إلكتروني (Web Menu)" : "تطبيق مخصص (Mobile App)"}`,
+        `• عدد الصفحات: ${calc.pagesCount} صفحات ($${calc.pagesCost.toFixed(2)})`
       ];
-      if (platform === "موقع" && itemsCount > 0) {
-        whatsappLines.push(`• عدد الأصناف: ${itemsCount} صنف`);
-        whatsappLines.push(`• التكلفة التقديرية (1$ / صنف): ${totalUsdFormatted} (${totalSarFormatted})`);
+      if (calc.selectedFeatures.length > 0) {
+        whatsappLines.push(`• المزايا الإضافية المختارة (${calc.selectedFeatures.length}):`);
+        calc.selectedFeatures.forEach(f => {
+          whatsappLines.push(`  ✓ ${f.title} (+$${f.price})`);
+        });
       }
+      whatsappLines.push(`• التكلفة الإجمالية التقديرية: $${calc.totalUsd.toFixed(2)} (~ ${calc.totalSar.toFixed(2)} ر.س)`);
       if (notes) {
         whatsappLines.push(`• ملاحظات إضافية: ${notes}`);
       }
@@ -616,7 +741,6 @@ function setupQuickConsultationForm() {
     const whatsappUrl = `https://wa.me/${PHONE_RAW}?text=${whatsappText}`;
 
     if (alertBox) {
-      const isEn = currentLang === 'en';
       alertBox.style.display = "block";
       alertBox.className = "feedback-card feedback-success";
       alertBox.innerHTML = `
@@ -631,11 +755,21 @@ function setupQuickConsultationForm() {
           <p class="feedback-desc" style="margin-bottom: 0.5rem;">
             ${isEn ? `Your request for (<strong>${escapeHTML(brand)}</strong> - Type: ${escapeHTML(type)} | Menu: ${escapeHTML(platform)}) is being reviewed immediately.` : `طلبك الخاص بـ (<strong>${escapeHTML(brand)}</strong> - نشاط: ${escapeHTML(type)} | منيو: ${escapeHTML(platform)}) قيد المتابعة الفورية.`}
           </p>
-          ${platform === "موقع" && itemsCount > 0 ? `
-            <div style="background: rgba(194, 155, 74, 0.12); border: 1px solid var(--gold-border); border-radius: 8px; padding: 0.5rem 0.85rem; font-size: 0.88rem; margin-bottom: 0.75rem; color: var(--brand-forest); font-weight: 600;">
-              📊 ${isEn ? `Item Count: <strong>${itemsCount}</strong> items · Estimated Cost:` : `عدد الأصناف: <strong>${itemsCount}</strong> صنف · التكلفة التقديرية:`} <span style="color: var(--gold-primary); font-weight: 800;">${totalUsdFormatted}</span> (${totalSarFormatted})
+
+          <div style="background: rgba(194, 155, 74, 0.12); border: 1px solid var(--gold-border); border-radius: 8px; padding: 0.75rem 0.95rem; font-size: 0.88rem; margin-bottom: 0.75rem; color: var(--brand-forest);">
+            <div style="font-weight: 700; margin-bottom: 0.35rem;">
+              📄 ${isEn ? `Menu Pages: <strong>${calc.pagesCount}</strong> ($${calc.pagesCost.toFixed(2)})` : `عدد الصفحات: <strong>${calc.pagesCount}</strong> صفحات ($${calc.pagesCost.toFixed(2)})`}
             </div>
-          ` : ''}
+            ${calc.selectedFeatures.length > 0 ? `
+              <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.35rem;">
+                ✨ ${isEn ? `Add-ons: ${escapeHTML(featuresListSummary)}` : `المزايا المختارة: ${escapeHTML(featuresListSummary)}`}
+              </div>
+            ` : ''}
+            <div style="font-size: 0.95rem; font-weight: 800; border-top: 1px dashed var(--gold-border); padding-top: 0.35rem; margin-top: 0.35rem;">
+              💰 ${isEn ? 'Total Estimated Cost:' : 'التكلفة الإجمالية التقديرية:'} <span style="color: var(--gold-primary);">$${calc.totalUsd.toFixed(2)}</span> (~ ${calc.totalSar.toFixed(2)} ${isEn ? 'SAR' : 'ر.س'})
+            </div>
+          </div>
+
           <p class="feedback-desc" style="margin-bottom: 0.75rem;">
             ${isEn ? `Our digital hospitality consultant will reach out shortly on <strong>${escapeHTML(phone)}</strong> or via <strong>${EMAIL_ADDRESS}</strong>.` : `سيتواصل معك مستشار الضيافة الرقمية فوراً على الرقم <strong>${escapeHTML(phone)}</strong> أو عبر البريد <strong>${EMAIL_ADDRESS}</strong>.`}
           </p>
@@ -653,10 +787,11 @@ function setupQuickConsultationForm() {
     }
 
     form.reset();
-    if (estimateBox) estimateBox.style.display = "none";
+    if (pagesInput) pagesInput.value = "5";
+    syncPresets(5);
+    updatePriceEstimate();
     if (labelPlatformWeb) labelPlatformWeb.classList.add("active");
     if (labelPlatformApp) labelPlatformApp.classList.remove("active");
-    if (itemsContainer) itemsContainer.style.display = "block";
   });
 }
 
