@@ -167,6 +167,7 @@ function setupMobileNav() {
     drawer.classList.toggle("open");
     const isOpen = drawer.classList.contains("open");
     toggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    toggleBtn.classList.toggle("is-active", isOpen);
   });
 
   // Close drawer when clicking any standard link
@@ -175,6 +176,7 @@ function setupMobileNav() {
     link.addEventListener("click", () => {
       drawer.classList.remove("open");
       toggleBtn.setAttribute("aria-expanded", "false");
+      toggleBtn.classList.remove("is-active");
     });
   });
 
@@ -183,6 +185,7 @@ function setupMobileNav() {
     if (drawer.classList.contains("open") && !drawer.contains(e.target) && !toggleBtn.contains(e.target)) {
       drawer.classList.remove("open");
       toggleBtn.setAttribute("aria-expanded", "false");
+      toggleBtn.classList.remove("is-active");
     }
   });
 
@@ -190,6 +193,7 @@ function setupMobileNav() {
     if (e.key === "Escape" && drawer.classList.contains("open")) {
       drawer.classList.remove("open");
       toggleBtn.setAttribute("aria-expanded", "false");
+      toggleBtn.classList.remove("is-active");
     }
   });
 }
@@ -481,8 +485,9 @@ function setupQuickConsultationForm() {
         const titleAr = cb.getAttribute("data-title-ar") || "";
         const titleEn = cb.getAttribute("data-title-en") || "";
         const title = currentLang === 'en' ? (titleEn || titleAr) : (titleAr || titleEn);
+        const isMonthly = cb.value === "domain";
         featuresCost += price;
-        selectedFeatures.push({ value: cb.value, title, price });
+        selectedFeatures.push({ value: cb.value, title, price, isMonthly });
       } else {
         if (card) card.classList.remove("selected");
       }
@@ -539,7 +544,7 @@ function setupQuickConsultationForm() {
         breakdownChips.innerHTML = selectedFeatures.map(f => `
           <span class="breakdown-chip">
             <span>✓ ${escapeHTML(f.title)}</span>
-            <strong style="color: var(--gold-primary);">+$${f.price}</strong>
+            <strong style="color: var(--gold-primary);">+$${f.price}${f.isMonthly ? (currentLang === 'en' ? '/mo' : ' شهرياً') : ''}</strong>
           </span>
         `).join("");
       } else {
@@ -805,7 +810,7 @@ function setupQuickConsultationForm() {
       if (calc.selectedFeatures.length > 0) {
         whatsappLines.push(`• Selected Add-ons (${calc.selectedFeatures.length}):`);
         calc.selectedFeatures.forEach(f => {
-          whatsappLines.push(`  ✓ ${f.title} (+$${f.price})`);
+          whatsappLines.push(`  ✓ ${f.title} (+$${f.price}${f.isMonthly ? '/mo' : ''})`);
         });
       }
       whatsappLines.push(`• Total Estimated Cost: $${calc.totalUsd.toFixed(2)} (${calc.totalSar.toFixed(2)} SAR)`);
@@ -825,7 +830,7 @@ function setupQuickConsultationForm() {
       if (calc.selectedFeatures.length > 0) {
         whatsappLines.push(`• المزايا الإضافية المختارة (${calc.selectedFeatures.length}):`);
         calc.selectedFeatures.forEach(f => {
-          whatsappLines.push(`  ✓ ${f.title} (+$${f.price})`);
+          whatsappLines.push(`  ✓ ${f.title} (+$${f.price}${f.isMonthly ? ' شهرياً' : ''})`);
         });
       }
       whatsappLines.push(`• التكلفة الإجمالية التقديرية: $${calc.totalUsd.toFixed(2)} (~ ${calc.totalSar.toFixed(2)} ر.س)`);

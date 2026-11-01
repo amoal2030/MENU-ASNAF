@@ -93,12 +93,12 @@
             </div>
 
             <a href="#quick-inquiry" class="btn btn-primary btn-sm" data-i18n="nav_cta">ابدأ مشروعك</a>
-            <button type="button" class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="فتح القائمة">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="4" x2="20" y1="12" x2="12"></line>
-                <line x1="4" x2="20" y1="6" x2="6"></line>
-                <line x1="4" x2="20" y1="18" x2="18"></line>
-              </svg>
+            <button type="button" class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="فتح القائمة" aria-expanded="false">
+              <span class="hamburger-box" aria-hidden="true">
+                <span class="hamburger-line hamburger-line-top"></span>
+                <span class="hamburger-line hamburger-line-mid"></span>
+                <span class="hamburger-line hamburger-line-bot"></span>
+              </span>
             </button>
           </div>
         </div>
@@ -752,16 +752,16 @@
                 </label>
 
                 <div class="features-grid" id="features-grid">
-                  <!-- Feature 1: Custom Domain -->
+                  <!-- Feature 1: Custom Domain & Monthly Hosting -->
                   <label class="feature-checkbox-card" id="card-feat-domain">
-                    <input type="checkbox" name="extra-feature" value="domain" data-price="15" data-title-ar="دومين خاص باسم مطعمك" data-title-en="Custom Domain Name" />
+                    <input type="checkbox" name="extra-feature" value="domain" data-price="30" data-title-ar="دومين خاص باسم مطعمك (30$ شهرياً)" data-title-en="Custom Domain & Hosting ($30/mo)" />
                     <div class="feature-card-body">
                       <div class="feature-card-header">
                         <span class="feature-icon">🌐</span>
                         <span class="feature-title" data-i18n="feat_domain_title">دومين ونطاق خاص باسم مطعمك (.com / .sa)</span>
-                        <span class="feature-price-tag">+15$</span>
+                        <span class="feature-price-tag" data-i18n="feat_domain_price">+30$ شهرياً</span>
                       </div>
-                      <p class="feature-desc" data-i18n="feat_domain_desc">ربط المنيو بنطاق مخصص لعلامتك التجارية</p>
+                      <p class="feature-desc" data-i18n="feat_domain_desc">ربط المنيو بنطاق مخصص لعلامتك التجارية مع استضافة شهرية</p>
                     </div>
                   </label>
 
